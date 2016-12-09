@@ -17,5 +17,11 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Gustavo Henrique Michels',
                 'email' => 'admin@user.com'
             ]);
+        
+        factory(\SisFin\User::class, 1)
+            ->create([
+                'name' => 'João da Silva',
+                'email' => 'client@user.com'
+            ]);
     }
 }

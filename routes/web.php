@@ -11,10 +11,25 @@
 |
 */
 
+/*
+Route::get('/user', function(){
+    \Illuminate\Support\Facades\Auth::LoginUsingId(2);
+});*/
+
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Route::get('/home', function(){
+    return redirect()->route('admin.home');
+});
 
-Route::get('/home', 'HomeController@index');
+Route::group([
+    'prefix' => 'admin', 
+    'as' => 'admin.'
+], function (){
+    Auth::routes();
+    Route::group(['middleware' => 'can:access-admin'], function(){
+        Route::get('/home', 'HomeController@index')->name('home');
+    });
+});

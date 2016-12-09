@@ -3,7 +3,10 @@
 namespace SisFin\Http\Controllers\Auth;
 
 use SisFin\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+use SisFin\User;
 
 class LoginController extends Controller
 {
@@ -15,7 +18,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin/home';
 
     /**
      * Create a new controller instance.
@@ -27,9 +30,9 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
-    public function credentials(Request $request) {
+    protected function credentials(Request $request) {
         $data = $request->only($this->username(), 'password');
-        $data['role'] = SisFin\User::ROLE_ADMIN;
+        $data['role'] = User::ROLE_ADMIN;
         return $data;
     }
 
