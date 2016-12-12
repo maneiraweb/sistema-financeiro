@@ -15,13 +15,15 @@ class UsersTableSeeder extends Seeder
             ->states('admin')
             ->create([
                 'name' => 'Gustavo Henrique Michels',
-                'email' => 'admin@user.com'
+                'email' => 'admin@user.com',
+                'type' => 'administrador'
             ]);
         
         factory(\SisFin\User::class, 1)
             ->create([
                 'name' => 'João da Silva',
-                'email' => 'client@user.com'
+                'email' => 'client@user.com',
+                'type' => 'usuario'
             ]);
     }
 }
