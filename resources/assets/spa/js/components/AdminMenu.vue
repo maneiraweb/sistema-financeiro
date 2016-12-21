@@ -1,16 +1,12 @@
 <template>
-    <ul :id="o.id" class="dropdown-content" v-for="o in config.menusDropdown">
+    <ul :id="o.id" class="dropdown-content" v-for="o in menusDropdown">
         <li v-for="item in o.items">
             <a :href="item.url">{{ item.name }}</a>
         </li>
     </ul>
     <ul id="dropdown-logout" class="dropdown-content">
         <li>
-            <a :href="config.urlLogout" @click.prevent="goToLogout()">Sair</a>
-
-            <form id="logout-form" :action="config.urlLogout" method="POST" style="display: none;">
-                <input type="hidden" name="_token" :value="config.csrfToken" />
-            </form>
+            <a v-link="{name: 'auth.logout'}">Sair</a>
         </li>
     </ul>
     <div class="navbar-fixed">
@@ -22,7 +18,7 @@
                         <i class="material-icons">menu</i>
                     </a>
                     <ul class="right hide-on-med-and-down">
-                        <li v-for="o in config.menus">
+                        <li v-for="o in menus">
                             <a v-if="o.dropdownId" class="dropdown-button" href="!#" :data-activates="o.dropdownId">
                             {{ o.name }} <i class="material-icons right">arrow_drop_down</i>
                         </a>
@@ -30,13 +26,13 @@
                         </li>
                         <li>
                             <a class="dropdown-button" href="!#" data-activates="dropdown-logout">
-                            {{ config.name }} <i class="material-icons right">arrow_drop_down</i>
+                            {{ name }} <i class="material-icons right">arrow_drop_down</i>
                         </a>
                         </li>
                     </ul>
                 </div>
                 <ul id="nav-mobile" class="side-nav">
-                    <li v-for="o in config.menus">
+                    <li v-for="o in menus">
                         <a :href="o.url">{{ o.name }} </a>
                     </li>
                 </ul>
@@ -46,28 +42,33 @@
 </template>
 
 <script type="text/javascript">
+import Auth from '../services/auth';
     export default {
-        props: {
-            config: {
-                type: Object,
-                default() {
-                    return {
-                        name: '',
-                        menus: [],
-                        menusDropdown: [],
-                        urlLogout: '/admin/logout'
+        data(){
+            return {
+                menus: [
+                    {name: 'Novo Contrato', dropdownId: 'novo_contrato'}
+                ],
+                menusDropdown: [
+                    {
+                        id: 'teste',
+                        items: [
+                            {name: 'Login', routeName: 'auth.login'},
+                            {name: 'Sair', routeName: 'auth.logout'},
+                        ]
                     }
-                }
+                ],
+                user: Auth.user
+            }
+        },
+        computed: {
+            name() {
+                return this.user.data ? this.user.data.name : '';
             }
         },
          ready() {
              $('.button-collapse').sideNav();
              $('.dropdown-button').dropdown();
-         },
-         methods: {
-             goToLogout() {
-                 $('#logout-form').submit();
-             }
          }
     }
 </script>
