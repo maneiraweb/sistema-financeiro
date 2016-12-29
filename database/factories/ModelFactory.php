@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(SisFin\User::class, function (Faker\Generator $faker) {
+$factory->define(SisFin\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -22,8 +22,16 @@ $factory->define(SisFin\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->state(SisFin\User::class, 'admin', function (Faker\Generator $faker) {
+$factory->state(SisFin\Models\User::class, 'admin', function (Faker\Generator $faker) {
     return [
-        'role' => \SisFin\User::ROLE_ADMIN
+        'role' => \SisFin\Models\User::ROLE_ADMIN
+    ];
+});
+
+$factory->define(SisFin\Models\Banco::class, function (Faker\Generator $faker) {
+
+    return [
+        'nome' => $faker->name,
+        'logo' => md5(time()).'.jpg',
     ];
 });

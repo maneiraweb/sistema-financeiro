@@ -2,7 +2,7 @@
 
 namespace SisFin\Http\Controllers\Auth;
 
-use SisFin\User;
+use SisFin\Models\User;
 use Validator;
 use SisFin\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;

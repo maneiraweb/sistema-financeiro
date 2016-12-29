@@ -6,7 +6,7 @@ use SisFin\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
-use SisFin\User;
+use SisFin\Models\User;
 
 class LoginController extends Controller
 {

@@ -11,7 +11,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\SisFin\User::class, 1)
+        factory(\SisFin\Models\User::class, 1)
             ->states('admin')
             ->create([
                 'name' => 'Gustavo Henrique Michels',
@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
                 'type' => 'administrador'
             ]);
         
-        factory(\SisFin\User::class, 1)
+        factory(\SisFin\Models\User::class, 1)
             ->create([
                 'name' => 'João da Silva',
                 'email' => 'client@user.com',

@@ -8,7 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
 
-use SisFin\User;
+use SisFin\Models\User;
 
 class AuthController extends Controller
 {
