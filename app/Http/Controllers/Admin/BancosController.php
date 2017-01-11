@@ -9,6 +9,7 @@ use SisFin\Http\Controllers\Response;
 use SisFin\Http\Requests\BancoCreateRequest;
 use SisFin\Http\Requests\BancoUpdateRequest;
 use SisFin\Repositories\BancoRepository;
+use SisFin\Models\Banco;
 
 
 class BancosController extends Controller
@@ -41,7 +42,6 @@ class BancosController extends Controller
                 'data' => $bancos,
             ]);
         }*/
-
         return view('admin.bancos.index', compact('bancos'));
     }
 
@@ -60,7 +60,6 @@ class BancosController extends Controller
     public function store(BancoCreateRequest $request)
     {
         $data = $request->all();
-        $data['logo'] = md5(time()).'.jpg';
         $banco = $this->repository->create($data);
 
             /*if ($request->wantsJson()) {

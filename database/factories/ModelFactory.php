@@ -28,10 +28,3 @@ $factory->state(SisFin\Models\User::class, 'admin', function (Faker\Generator $f
     ];
 });
 
-$factory->define(SisFin\Models\Banco::class, function (Faker\Generator $faker) {
-
-    return [
-        'nome' => $faker->name,
-        'logo' => md5(time()).'.jpg',
-    ];
-});

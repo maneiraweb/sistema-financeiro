@@ -4,9 +4,9 @@ namespace SisFin\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use SisFin\Repositories\BancoRepository;
 use SisFin\Models\Banco;
-use SisFin\Validators\BancoValidator;
+
+use SisFin\Events\BancoStoredEvent;
 
 /**
  * Class BancoRepositoryEloquent
@@ -14,6 +14,29 @@ use SisFin\Validators\BancoValidator;
  */
 class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
 {
+    public function create(array $attributes) {
+        $logo = $attributes['logo'];
+        $attributes['logo'] = "semimagem.jpg";
+        $model =  parent::create($attributes);
+        $event = new BancoStoredEvent($model, $logo);
+        event($event);
+
+        return $model;
+    }
+
+    public function update(array $attributes, $id) {
+        $logo = null;
+        if(isset($attributes['logo'])){
+            $logo = $attributes['logo'];
+            unset($attributes['logo']);
+        }
+        $model =  parent::update($attributes, $id);
+        $event = new BancoStoredEvent($model, $logo);
+        event($event);
+
+        return $model;
+    }
+
     /**
      * Specify Model class name
      *

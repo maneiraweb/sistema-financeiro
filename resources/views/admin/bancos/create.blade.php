@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
         <h4>Novo Banco</h4>
-            {!! Form::open(['route' => 'admin.bancos.store']) !!}
+            {!! Form::open(['route' => 'admin.bancos.store', 'files' => true]) !!}
                 @include('admin.bancos._form')
             {!! Form::close() !!}
         </div>

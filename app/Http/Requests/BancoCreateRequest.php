@@ -24,7 +24,8 @@ class BancoCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => 'required|max:255',
+            'logo' => 'required|image'
         ];
     }
 }

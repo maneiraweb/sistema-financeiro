@@ -2,6 +2,9 @@
 
 namespace SisFin\Providers;
 
+use SisFin\Events\BancoStoredEvent;
+use SisFin\Listeners\BancoLogoUploadListener;
+
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,9 +16,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'SisFin\Events\SomeEvent' => [
-            'SisFin\Listeners\EventListener',
-        ],
+        BancoStoredEvent::class => [
+            BancoLogoUploadListener::class
+        ]
     ];
 
     /**
