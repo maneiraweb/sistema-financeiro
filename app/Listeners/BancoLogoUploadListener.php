@@ -36,12 +36,12 @@ class BancoLogoUploadListener
 
         if($logo) {
 
-            $nome = $banco->created_at != $banco->updated_at ? $banco->logo : md5(time()) . '.' . $logo->guessExtension();
+            $nome = $banco->created_at != $banco->updated_at ? $banco->logo : md5(time().$logo->getClientOriginalName()) . '.' . $logo->guessExtension();
             $destFile = Banco::logosDir();
 
-            \Storage::disk('public')->putFileAs($destFile, $logo, $nome);
+            $result = \Storage::disk('public')->putFileAs($destFile, $logo, $nome);
 
-            if($banco->created_at == $banco->updated_at){
+            if($result && $banco->created_at == $banco->updated_at){
                 $this->repository->update(['logo' => $nome], $banco->id);
             }
         }

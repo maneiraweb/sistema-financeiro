@@ -7,6 +7,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use SisFin\Models\Banco;
 
 use SisFin\Events\BancoStoredEvent;
+use Illuminate\Http\UploadedFile;
 
 /**
  * Class BancoRepositoryEloquent
@@ -16,8 +17,8 @@ class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
 {
     public function create(array $attributes) {
         $logo = $attributes['logo'];
-        $attributes['logo'] = "semimagem.jpg";
-        $model =  parent::create($attributes);
+        $attributes['logo'] = env('BANCO_LOGO_DEFAULT');
+        $model = parent::create($attributes);
         $event = new BancoStoredEvent($model, $logo);
         event($event);
 
@@ -26,11 +27,11 @@ class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
 
     public function update(array $attributes, $id) {
         $logo = null;
-        if(isset($attributes['logo'])){
+        if(isset($attributes['logo']) && $attributes['logo'] instanceof UploadedFile){
             $logo = $attributes['logo'];
             unset($attributes['logo']);
         }
-        $model =  parent::update($attributes, $id);
+        $model = parent::update($attributes, $id);
         $event = new BancoStoredEvent($model, $logo);
         event($event);
 

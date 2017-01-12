@@ -34,7 +34,6 @@
                 [
                     'id' => 'teste',
                     'items' => [
-                        ['name' => 'Banco', 'url' => route('admin.bancos.index'), 'active' => isRouteActive('admin.bancos.index')],
                         ['name' => 'Banco Edit', 'url' => route('admin.bancos.index'), 'active' => isRouteActive('admin.bancos.edit')]
                     ]
                 ]
