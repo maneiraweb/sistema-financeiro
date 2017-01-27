@@ -28,3 +28,11 @@ $factory->state(SisFin\Models\User::class, 'admin', function (Faker\Generator $f
     ];
 });
 
+$factory->define(SisFin\Models\ContaBancaria::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->city,
+        'agencia' => rand(10000, 60000). '-' .rand(0, 9),
+        'conta' => rand(70000, 260000). '-' .rand(0, 9),
+    ];
+});
+

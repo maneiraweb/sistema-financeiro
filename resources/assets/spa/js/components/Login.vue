@@ -1,7 +1,7 @@
 <template>
 <div class="container">
     <div class="row">
-        <div class="col s8 offset-s2 z-depth-2">
+        <div class="card-panel col s8 offset-s2 z-depth-2">
         <h3 class="center">Sistema Financeiro</h3>
             <form method="POST" @submit.prevent="login()">
                 

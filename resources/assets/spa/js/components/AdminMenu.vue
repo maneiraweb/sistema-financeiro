@@ -47,7 +47,7 @@ import Auth from '../services/auth';
         data(){
             return {
                 menus: [
-                    {name: 'Novo Contrato', dropdownId: 'novo_contrato'}
+                    {name: 'Conta Bancária', dropdownId: 'conta-bancaria.list'}
                 ],
                 menusDropdown: [
                     {

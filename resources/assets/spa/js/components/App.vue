@@ -1,20 +1,25 @@
 <template>
     <div id="app">
-    <header v-if="showMenu">
-        <menu></menu>
-    </header>
-    
-    <main>
-        <router-view></router-view>
-    </main>
-    
-    <footer class="page-footer">
-        <div class="footer-copyright">
-            <div class="center container">
-                {{ year }} - Desenvolvido por Gustavo H. Michels
+        <div class="spinner-fixed" v-if="loading">
+            <div class="spinner">
+                <div class="indeterminate"></div>
             </div>
         </div>
-    </footer>
+        <header v-if="showMenu">
+            <menu></menu>
+        </header>
+        
+        <main>
+            <router-view></router-view>
+        </main>
+        
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="center container">
+                    {{ year }} - Desenvolvido por Gustavo H. Michels
+                </div>
+            </div>
+        </footer>
 
     </div>
 </template>
@@ -26,10 +31,17 @@ import Auth from '../services/auth';
         components: {
             'menu': MenuComponent
         },
+        created() {
+            window.Vue.http.interceptors.unshift((request, next) => {
+                this.loading = true;
+                next(() => this.loading = false);
+            });
+        },
         data() {
             return {
                 year: new Date().getFullYear(),
-                user: Auth.user
+                user: Auth.user,
+                loading: false
             }
         },
         computed: {
