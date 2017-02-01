@@ -1,7 +1,9 @@
 import LoginComponent from './components/Login.vue';
 import LogoutComponent from './components/Logout.vue';
 import DashboardComponent from './components/Dashboard.vue';
-import ContaBancariaList from './components/conta-bancaria/ContaBancariaList.vue';
+import ContaBancariaListComponent from './components/conta-bancaria/ContaBancariaList.vue';
+import ContaBancariaCreateComponent from './components/conta-bancaria/ContaBancariaCreate.vue';
+import ContaBancariaUpdateComponent from './components/conta-bancaria/ContaBancariaUpdate.vue';
 
 export default {
     '/login': {
@@ -24,11 +26,15 @@ export default {
         subRoutes: {
             '/': {
                 name: 'conta-bancaria.list',
-                component: ContaBancariaList
+                component: ContaBancariaListComponent
+            },
+            '/create': {
+                name: 'conta-bancaria.create',
+                component: ContaBancariaCreateComponent
             },
             '/:id/update': {
                 name: 'conta-bancaria.update',
-                component: ContaBancariaList
+                component: ContaBancariaUpdateComponent
             }
         }
     }

@@ -12,12 +12,8 @@ use SisFin\Models\ContaBancaria;
 class ContaBancariaTransformer extends TransformerAbstract
 {
 
-    /**
-     * Transform the \ContaBancaria entity
-     * @param \ContaBancaria $model
-     *
-     * @return array
-     */
+    protected $availableIncludes = ['banco']; 
+
     public function transform(ContaBancaria $model)
     {
         return [
@@ -26,11 +22,13 @@ class ContaBancariaTransformer extends TransformerAbstract
             'agencia' => $model->agencia,
             'conta' => $model->conta,
             'default' => (bool) $model->default,
-
-            /* place your other model properties here */
-
+            'banco_id' => (int) $model->banco_id,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
+    }
+
+    public function includeBanco(ContaBancaria $model) {
+        return $this->item($model->banco, new BancoTransformer());
     }
 }

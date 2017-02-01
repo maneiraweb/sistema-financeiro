@@ -14,6 +14,7 @@ class ContaBancaria extends Model implements Transformable
         'nome',
         'agencia',
         'conta',
+        'default',
 
         'banco_id'
     ];

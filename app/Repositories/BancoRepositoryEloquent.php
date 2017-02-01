@@ -5,6 +5,7 @@ namespace SisFin\Repositories;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use SisFin\Models\Banco;
+use SisFin\Presenters\BancoPresenter;
 
 use SisFin\Events\BancoStoredEvent;
 use Illuminate\Http\UploadedFile;
@@ -18,11 +19,14 @@ class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
     public function create(array $attributes) {
         $logo = $attributes['logo'];
         $attributes['logo'] = env('BANCO_LOGO_DEFAULT');
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
         $model = parent::create($attributes);
         $event = new BancoStoredEvent($model, $logo);
         event($event);
+        $this->skipPresenter = $skipPresenter;
 
-        return $model;
+        return $this->parserResult($model);
     }
 
     public function update(array $attributes, $id) {
@@ -31,11 +35,15 @@ class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
             $logo = $attributes['logo'];
             unset($attributes['logo']);
         }
+
+        $skipPresenter = $this->skipPresenter;
+        $this->skipPresenter(true);
         $model = parent::update($attributes, $id);
         $event = new BancoStoredEvent($model, $logo);
         event($event);
+        $this->skipPresenter = $skipPresenter;
 
-        return $model;
+        return $this->parserResult($model);
     }
 
     /**
@@ -56,5 +64,9 @@ class BancoRepositoryEloquent extends BaseRepository implements BancoRepository
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter() {
+        return BancoPresenter::class;
     }
 }

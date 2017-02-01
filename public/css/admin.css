@@ -10692,6 +10692,11 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   }
 }
 
+.banco-logo {
+  width: 22px;
+  height: 22px;
+}
+
 #app {
   display: -webkit-box;
   display: flex;
@@ -10704,11 +10709,6 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
 main {
   -webkit-box-flex: 1;
   flex: 1 0 auto;
-}
-
-.banco-logo {
-  width: 22px;
-  height: 22px;
 }
 
 /*# sourceMappingURL=admin.css.map */

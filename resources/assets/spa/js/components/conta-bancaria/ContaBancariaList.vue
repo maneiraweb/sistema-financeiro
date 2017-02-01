@@ -1,22 +1,11 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="card-panel green lighten-3">
-                <span class="green-text text-darken-2">
-                    <h5>Minhas contas bancárias</h5>
-                </span>
-            </div>
+        <page-title>
+            <h5>Minhas contas bancárias</h5>
+        </page-title>
             <div class="card-panel z-depth-5">
-                <form name="form" method="GET" @submit="filter()">
-                    <div class="filter-group">
-                        <button class="btn waves-effect" type="submit">
-                            <i class="material-icons">search</i>
-                        </button>
-                        <div class="filter-wrapper">
-                            <input type="text" v-model="search" placeholder="Pesquise..."/>
-                        </div>
-                    </div>
-                </form>
+            <search @on-submit="filter" :model.sync="search"></search>    
             <table class="bordered striped highlight responsive-table">
                 <thead>
                     <tr>
@@ -36,7 +25,20 @@
                        <td>&nbsp;{{ o.id }}</td>
                        <td>{{ o.nome }}</td> 
                        <td>{{ o.agencia }}</td> 
-                       <td>{{ o.conta }}</td> 
+                       <td>{{ o.conta }}</td>
+                       <td>
+                           <div class="valign-wrapper">
+                               <div class="col s2">
+                                   <img :src="o.banco.data.logo" class="banco-logo">
+                               </div>
+                               <div class="col s10">
+                                   <span class="left">{{o.banco.data.nome}}</span>
+                               </div>
+                           </div>
+                       </td> 
+                       <td>
+                           <i class="material-icons green-text" v-if="o.default">check</i>
+                       </td>
                        <td>
                            <a v-link="{ name: 'conta-bancaria.update', params: {id: o.id}}">Editar</a> |
                            <a href="#" @click.prevent="openModalDelete(o)">Excluir</a>
@@ -50,7 +52,7 @@
                 :total-records="pagination.total"></pagination>
             </div>
             <div class="fixed-action-btn">
-                <a class="btn-floating btn-large" href="www.liasoft.com.br">
+                <a class="btn-floating btn-large" v-link="{name: 'conta-bancaria.create'}">
                     <i class="large material-icons">add</i>
                 </a>
             </div>    
@@ -79,11 +81,15 @@
     import {ContaBancaria} from '../../services/resources';
     import ModalComponent from '../../../../_default/components/Modal.vue';
     import PaginationComponent from '../Pagination.vue';
+    import PageTitleComponent from '../PageTitle.vue';
+    import SearchComponent from '../Search.vue';
 
     export default {
         components: {
             'modal': ModalComponent,
             'pagination': PaginationComponent,
+            'page-title': PageTitleComponent,
+            'search': SearchComponent
         },
         data() {
             return {
@@ -105,20 +111,22 @@
                 table: {
                     headers: {
                         id: {
-                            label: 'Cód.',
-                            width: '10%'
+                            label: 'Cód.', width: '8%'
                         },
                         nome: {
-                            label: 'Nome',
-                            'width': '45%'
+                            label: 'Nome', width: '30%'
                         },
                         agencia: {
-                            label: 'Agência',
-                            width: '15%',
+                            label: 'Agência', width: '12%',
                         },
                         conta: {
-                            label: 'C/C',
-                            width: '15%'
+                            label: 'C/C', width: '12%'
+                        },
+                        'bancos:banco_id|bancos.nome': {
+                            label: 'Banco', width: '18%'
+                        },
+                        'default': {
+                            label: 'Padrão', width: '5%'
                         }
                     }
                 }
@@ -132,6 +140,9 @@
                 ContaBancaria.delete({id: this.contaBancariaToDelete.id}).then((response) => {
                     this.contasBancarias.$remove(this.contaBancariaToDelete);
                     this.contaBancariaToDelete = null;
+                    if(this.contasBancarias.length === 0 && this.pagination.current_page > 0) {
+                        this.pagination.current_page--;
+                    }
                     Materialize.toast('Conta bancária excluída com sucesso!', 4000);
                 });
             }, openModalDelete(contaBancaria) {
@@ -143,7 +154,8 @@
                     page: this.pagination.current_page + 1,
                     orderBy: this.order.key,
                     sortedBy: this.order.sort,
-                    search: this.search
+                    search: this.search,
+                    include: 'banco'
                 }).then((response) => {
                     this.contasBancarias = response.data.data;
                     let pagination = response.data.meta.pagination;
@@ -157,6 +169,7 @@
                 this.getContasBancarias();
             },
             filter() {
+                this.pagination.current_page = 0;
                 this.getContasBancarias();
             }
         },

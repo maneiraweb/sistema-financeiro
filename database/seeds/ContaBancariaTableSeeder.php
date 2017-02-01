@@ -12,6 +12,7 @@ class ContaBancariaTableSeeder extends Seeder
     public function run()
     {
         $repository = app(\SisFin\Repositories\BancoRepository::class);
+        $repository->skipPresenter(true);
         $bancos = $repository->all();
         $max = 15;
         $contaBancariaId = rand(1, $max);

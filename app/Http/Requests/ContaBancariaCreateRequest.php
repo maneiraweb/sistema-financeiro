@@ -24,7 +24,11 @@ class ContaBancariaCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'nome' => 'required|max:255',
+            'agencia' => 'required|max:255',
+            'conta' => 'required|max:255',
+            'default' => 'boolean',
+            'banco_id' => 'required|exists:bancos,id'
         ];
     }
 }
