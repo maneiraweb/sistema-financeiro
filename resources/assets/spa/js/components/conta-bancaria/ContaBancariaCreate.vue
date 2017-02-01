@@ -43,7 +43,7 @@
                 let self = this;
                 $(document).ready(() => {
                     $('#banco-id').materialize_autocomplete({
-                        limit:10,
+                        limit: 10,
                         multiple: {
                             enable: false
                         },
