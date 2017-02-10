@@ -36,3 +36,15 @@ $factory->define(SisFin\Models\ContaBancaria::class, function (Faker\Generator $
     ];
 });
 
+$factory->define(SisFin\Models\Cliente::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name
+    ];
+});
+
+$factory->define(SisFin\Models\Categoria::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name
+    ];
+});
+

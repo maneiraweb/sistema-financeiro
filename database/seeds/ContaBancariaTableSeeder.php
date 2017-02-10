@@ -4,6 +4,8 @@ use Illuminate\Database\Seeder;
 
 class ContaBancariaTableSeeder extends Seeder
 {
+
+    use \SisFin\Repositories\GetClientesTrait;
     /**
      * Run the database seeds.
      *
@@ -11,17 +13,19 @@ class ContaBancariaTableSeeder extends Seeder
      */
     public function run()
     {
-        $repository = app(\SisFin\Repositories\BancoRepository::class);
-        $repository->skipPresenter(true);
-        $bancos = $repository->all();
-        $max = 15;
+        $bancos = $this->getBancos();
+        $clientes = $this->getClientes();
+        $max = 50;
         $contaBancariaId = rand(1, $max);
 
         factory(\SisFin\Models\ContaBancaria::class, $max)
             ->make()
-            ->each(function($contaBancaria) use($bancos, $contaBancariaId){
+            ->each(function($contaBancaria) use($bancos, $clientes, $contaBancariaId){
                 $banco = $bancos->random();
+                $cliente = $clientes->random();
+
                 $contaBancaria->banco_id = $banco->id;
+                $contaBancaria->cliente_id = $cliente->id;
 
                 $contaBancaria->save();
 
@@ -30,5 +34,11 @@ class ContaBancariaTableSeeder extends Seeder
                     $contaBancaria->save();
                 }
             });
+    }
+
+    private function getBancos() {
+        $repository = app(\SisFin\Repositories\BancoRepository::class);
+        $repository->skipPresenter(true);
+        return $repository->all();
     }
 }

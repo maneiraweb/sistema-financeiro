@@ -5,25 +5,15 @@ namespace SisFin\Models;
 use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
+use Kalnoy\Nestedset\NodeTrait;
 use HipsterJazzbo\Landlord\BelongsToTenants;
 
-
-class ContaBancaria extends Model implements Transformable
+class Categoria extends Model implements Transformable
 {
     use TransformableTrait;
     use BelongsToTenants;
+    use NodeTrait;
 
-    protected $fillable = [
-        'nome',
-        'agencia',
-        'conta',
-        'default',
-
-        'banco_id'
-    ];
-
-    public function banco() {
-        return $this->belongsTo(Banco::class);
-    }
+    protected $fillable = ['nome'];
 
 }

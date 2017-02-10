@@ -22,6 +22,7 @@
     "webpack-merge": "^0.14.1"
   },
   "dependencies": {
+    "lodash": "^4.17.4",
     "materialize-autocomplete": "^1.0.7"
   }
 }

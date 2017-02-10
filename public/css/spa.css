@@ -5133,7 +5133,7 @@ td, th {
   }
 }
 
-.collection {
+.collection, .categoria-tree {
   margin: 0.5rem 0 1rem 0;
   border: 1px solid #e0e0e0;
   border-radius: 2px;
@@ -5141,7 +5141,7 @@ td, th {
   position: relative;
 }
 
-.collection .collection-item {
+.collection .collection-item, .categoria-tree .collection-item, .categoria-tree .categoria-child {
   background-color: #fff;
   line-height: 1.5rem;
   padding: 10px 20px;
@@ -5149,13 +5149,13 @@ td, th {
   border-bottom: 1px solid #e0e0e0;
 }
 
-.collection .collection-item.avatar {
+.collection .collection-item.avatar, .categoria-tree .collection-item.avatar, .categoria-tree .avatar.categoria-child {
   min-height: 84px;
   padding-left: 72px;
   position: relative;
 }
 
-.collection .collection-item.avatar .circle {
+.collection .collection-item.avatar .circle, .categoria-tree .collection-item.avatar .circle, .categoria-tree .avatar.categoria-child .circle {
   position: absolute;
   width: 42px;
   height: 42px;
@@ -5165,7 +5165,7 @@ td, th {
   vertical-align: middle;
 }
 
-.collection .collection-item.avatar i.circle {
+.collection .collection-item.avatar i.circle, .categoria-tree .collection-item.avatar i.circle, .categoria-tree .avatar.categoria-child i.circle {
   font-size: 18px;
   line-height: 42px;
   color: #fff;
@@ -5173,55 +5173,55 @@ td, th {
   text-align: center;
 }
 
-.collection .collection-item.avatar .title {
+.collection .collection-item.avatar .title, .categoria-tree .collection-item.avatar .title, .categoria-tree .avatar.categoria-child .title {
   font-size: 16px;
 }
 
-.collection .collection-item.avatar p {
+.collection .collection-item.avatar p, .categoria-tree .collection-item.avatar p, .categoria-tree .avatar.categoria-child p {
   margin: 0;
 }
 
-.collection .collection-item.avatar .secondary-content {
+.collection .collection-item.avatar .secondary-content, .categoria-tree .collection-item.avatar .secondary-content, .categoria-tree .avatar.categoria-child .secondary-content {
   position: absolute;
   top: 16px;
   right: 16px;
 }
 
-.collection .collection-item:last-child {
+.collection .collection-item:last-child, .categoria-tree .collection-item:last-child, .categoria-tree .categoria-child:last-child {
   border-bottom: none;
 }
 
-.collection .collection-item.active {
+.collection .collection-item.active, .categoria-tree .collection-item.active, .categoria-tree .active.categoria-child {
   background-color: #43A047;
   color: #fdfefd;
 }
 
-.collection .collection-item.active .secondary-content {
+.collection .collection-item.active .secondary-content, .categoria-tree .collection-item.active .secondary-content, .categoria-tree .active.categoria-child .secondary-content {
   color: #fff;
 }
 
-.collection a.collection-item {
+.collection a.collection-item, .categoria-tree a.collection-item, .categoria-tree a.categoria-child {
   display: block;
   -webkit-transition: .25s;
   transition: .25s;
   color: #43A047;
 }
 
-.collection a.collection-item:not(.active):hover {
+.collection a.collection-item:not(.active):hover, .categoria-tree a.collection-item:not(.active):hover, .categoria-tree a.categoria-child:not(.active):hover {
   background-color: #ddd;
 }
 
-.collection.with-header .collection-header {
+.collection.with-header .collection-header, .with-header.categoria-tree .collection-header {
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
   padding: 10px 20px;
 }
 
-.collection.with-header .collection-item {
+.collection.with-header .collection-item, .with-header.categoria-tree .collection-item, .collection.with-header .categoria-tree .categoria-child, .categoria-tree .collection.with-header .categoria-child, .with-header.categoria-tree .categoria-child {
   padding-left: 30px;
 }
 
-.collection.with-header .collection-item.avatar {
+.collection.with-header .collection-item.avatar, .with-header.categoria-tree .collection-item.avatar, .collection.with-header .categoria-tree .avatar.categoria-child, .categoria-tree .collection.with-header .avatar.categoria-child, .with-header.categoria-tree .avatar.categoria-child {
   padding-left: 72px;
 }
 
@@ -5230,7 +5230,7 @@ td, th {
   color: #43A047;
 }
 
-.collapsible .collection {
+.collapsible .collection, .collapsible .categoria-tree {
   margin: 0;
   border: none;
 }
@@ -10720,6 +10720,26 @@ body {
 .filter-group .filter-wrapper {
   overflow: hidden;
   padding-right: 10px;
+}
+
+.categoria-tree {
+  border: none;
+  margin: 0;
+  overflow: visible;
+}
+
+.categoria-tree .categoria-child {
+  padding-left: 50px;
+}
+
+.categoria-tree .categoria-symbol {
+  line-height: 36px;
+  height: 36px;
+}
+
+.categoria-tree .categoria-symbol i {
+  line-height: inherit;
+  height: inherit;
 }
 
 /*# sourceMappingURL=spa.css.map */

@@ -5,6 +5,7 @@ namespace SisFin\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use SisFin\Models\Cliente;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -26,9 +27,14 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array
      */
+     
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function cliente() {
+        return $this->belongsTo(Cliente::class);
+    }
 
     public function getJWTIdentifier() {
         return $this->id;

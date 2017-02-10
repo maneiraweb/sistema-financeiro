@@ -25,7 +25,7 @@
 </template>
 
 <script type="text/javascript">
-import MenuComponent from './AdminMenu.vue';
+import MenuComponent from './Menu.vue';
 import Auth from '../services/auth';
     export default {
         components: {

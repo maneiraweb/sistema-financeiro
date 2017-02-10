@@ -20,6 +20,9 @@
                     banco_id: '',
                     'default': false,
                 },
+                banco: {
+                    nome: ""
+                },
                 bancos: []
             };
         },
@@ -42,6 +45,9 @@
             initAutocomplete() {
                 let self = this;
                 $(document).ready(() => {
+                    $('#banco-id').one('focus', function () {
+                        $(this).click();
+                    });
                     $('#banco-id').materialize_autocomplete({
                         limit: 10,
                         multiple: {
@@ -52,7 +58,7 @@
                         },
                         getData(value, callback) {
                             let bancos = self.filterBancoPorNome(value);
-                            bancos = bancos.map(() => {
+                            bancos = bancos.map((o) => {
                                 return {id: o.id, text: o.nome};
                             })
                             callback(value, bancos);

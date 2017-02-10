@@ -32,7 +32,7 @@
                                 <option v-for="o in bancos" :value="o.id">{{o.nome}}</option>
                             </select>-->
                             <input type="text" id="banco-id" placeholder="Pesquise o banco"
-                            autocomplete="off" data-activates="banco-id-dropdown" data-beloworigin="true"/>
+                            autocomplete="off" data-activates="banco-id-dropdown" data-beloworigin="true" :value="banco.nome"/>
                             <ul id="banco-id-dropdown" class="dropdown-content ac-dropdown"></ul>
                         </div>
                     </div>

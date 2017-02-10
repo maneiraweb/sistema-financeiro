@@ -6,7 +6,7 @@
                     <div class="panel-heading">Meu Dashboard</div>
 
                     <div class="panel-body">
-                        I'm Gustavo Henrique Michels!
+                        Hello!
                     </div>
                 </div>
             </div>
@@ -20,7 +20,7 @@ import {User} from '../services/resources';
     export default {
         ready() {
             User.get().then((response) => {
-                console.log(response.data);
+                
             })
             //console.log(Auth.user());
         }
