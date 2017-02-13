@@ -17,6 +17,7 @@ class CategoriaRepositoryEloquent extends BaseRepository implements CategoriaRep
 {
 
     public function create(array $attributes) {
+        Categoria::$enableTenant = false;
         if(isset($attributes['parent_id'])){
             //filho
             $skipPresenter = $this->skipPresenter;
@@ -24,27 +25,34 @@ class CategoriaRepositoryEloquent extends BaseRepository implements CategoriaRep
             $parent = $this->find($attributes['parent_id']);
             $this->skipPresenter = $skipPresenter;
             $child = $parent->children()->create($attributes);
-            return $this->parserResult($child);
+            $result =  $this->parserResult($child);
         } else {
             //pai
-            return parent::create($attributes);
+            $result = parent::create($attributes);
         }
+        Categoria::$enableTenant = true;
+        return $result;
     }
 
     public function update(array $attributes, $id) {
+        Categoria::$enableTenant = false;
         if(isset($attributes['parent_id'])){
             //filho
             $skipPresenter = $this->skipPresenter;
             $this->skipPresenter(true);
             $child = $this->find($id);
             $child->parent_id = $attributes['parent_id'];
+            $child->fill($attributes);
             $child->save();
             $this->skipPresenter = $skipPresenter;
-            return $this->parserResult($child);
+            $result = $this->parserResult($child);
         } else {
             //pai
-            return parent::update($attributes, $id);
+            $result = parent::update($attributes, $id);
+            $result->makeRoot()->save();
         }
+        Categoria::$enableTenant = true;
+        return $result;
     }
     /**
      * Specify Model class name

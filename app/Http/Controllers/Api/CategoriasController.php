@@ -6,6 +6,7 @@ use SisFin\Http\Controllers\Controller;
 use SisFin\Repositories\CategoriaRepository;
 use SisFin\Http\Requests\CategoriaRequest;
 use SisFin\Criteria\FindRootCategoriasCriteria;
+use SisFin\Criteria\WithDepthCategoriasCriteria;
 
 
 
@@ -20,6 +21,7 @@ class CategoriasController extends Controller
     public function __construct(CategoriaRepository $repository)
     {
         $this->repository = $repository;
+        $this->repository->pushCriteria(new WithDepthCategoriasCriteria());
     }
 
 
@@ -47,7 +49,9 @@ class CategoriasController extends Controller
      */
     public function store(CategoriaRequest $request)
     {
-        $categoria = $this->repository->create($request->all());
+        $categoria = $this->repository->skipPresenter()->create($request->all());
+        $this->repository->skipPresenter(false);
+        $categoria = $this->repository->find($categoria->id);
         return response()->json($categoria, 201);
     }
 
@@ -76,7 +80,9 @@ class CategoriasController extends Controller
      */
     public function update(CategoriaRequest $request, $id)
     {
-        $categoria = $this->repository->update($request->all(), $id);
+        $categoria = $this->repository->skipPresenter()->update($request->all(), $id);
+        $this->repository->skipPresenter(false);
+        $categoria = $this->repository->find($categoria->id);
         return response()->json($categoria);
     }
 

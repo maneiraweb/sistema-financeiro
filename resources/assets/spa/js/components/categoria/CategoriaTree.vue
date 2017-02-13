@@ -14,12 +14,12 @@
                         <a href="#" @click.prevent="categoriaEdit(o)">Editar</a>
                     </li>
                     <li>
-                        <a href="#">Excluir</a>
+                        <a href="#" @click.prevent="categoriaDelete(o)">Excluir</a>
                     </li>
                 </ul>
                 <span class="valign">{{{ categoriaText(o) }}}</span>
             </div>
-            <categoria-tree :categorias="o.children.data"></categoria-tree>
+            <categoria-tree :categorias="o.children.data" :parent="o"></categoria-tree>
         </li>
     </ul>
 </template>
@@ -32,6 +32,13 @@
             categorias: {
                 type: Array,
                 required: true
+            },
+            parent: {
+                type: Object,
+                required: false,
+                'default'() {
+                    return null;
+                }
             }
         },
         watch: {
@@ -61,7 +68,10 @@
                 this.$dispatch('categoria-new', categoria);
             }, 
             categoriaEdit(categoria) {
-                this.$dispatch('categoria-edit', categoria);
+                this.$dispatch('categoria-edit', categoria, this.parent);
+            },
+            categoriaDelete(categoria) {
+                this.$dispatch('categoria-delete', categoria, this.parent);
             }
         }
     }

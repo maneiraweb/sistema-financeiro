@@ -15,5 +15,18 @@ class Categoria extends Model implements Transformable
     use NodeTrait;
 
     protected $fillable = ['nome'];
+    public static $enableTenant = true;
 
+    
+    public function newQuery() {
+        $builder = $this->newQueryWithoutScopes();
+
+        foreach ($this->getGlobalScopes() as $identifier => $scope) {
+            if((static::$enableTenant && $identifier == 'client_id') || $identifier != 'client_id') {
+                $builder->withGlobalScope($identifier, $scope);
+            }
+        }
+
+        return $builder;
+    }
 }

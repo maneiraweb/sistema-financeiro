@@ -14,8 +14,8 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
+                            <select-material :options="cpOptions" :selected="categoria.parent_id"></select-material>
                             <label class="active">Categoria Pai</label>
-                            <input type="text" />
                         </div>
                     </div>
                 </div>
@@ -29,10 +29,12 @@
 
 <script type="text/javascript">
     import ModalComponent from '../../../../_default/components/Modal.vue';
-
+    import SelectedMaterialComponent from '../../../../_default/components/SelectMaterial.vue';
+    
     export default {
         components: {
-            'modal': ModalComponent
+            'modal': ModalComponent,
+            'select-material': SelectedMaterialComponent
         },
         props: {
             categoria: {
@@ -41,6 +43,10 @@
             },
             modalOptions: {
                 title: Object,
+                required: true
+            },
+            cpOptions: {
+                type: Object,
                 required: true
             }
         },

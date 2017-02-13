@@ -24,15 +24,17 @@ class CategoriaTransformer extends TransformerAbstract
         return [
             'id'         => (int) $model->id,
             'nome'       => $model->nome,
-
+            'parent_id'  => $model->parent_id,
+            'depth'      => $model->depth,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
     }
 
     public function includeChildren(Categoria $model) {
-        if($model->children){
-            return $this->collection($model->children, new CategoriaTransformer());
-        }
+        //if($model->children->count()){
+            $children = $model->children()->withDepth()->get();
+            return $this->collection($children, new CategoriaTransformer());
+        //}
     }
 }
