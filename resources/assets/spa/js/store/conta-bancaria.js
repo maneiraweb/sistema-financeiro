@@ -53,10 +53,32 @@ const actions = {
     },
     queryWithFilter(context, filter) {
         context.dispatch('query');
+    },
+    'delete'(context) {
+        let id = context.state.contaBancariaDelete.id;
+        return ContaBancaria.delete({ id: id }).then((response) => {
+            context.commit('delete');
+            context.commit('setDelete', null);
+
+            let contasBancarias = context.state.contasBancarias;
+            let pagination = context.state.searchOptions.pagination;
+            if (contasBancarias.length === 0 && pagination.current_page > 0) {
+                context.commit('setCurrentPage', pagination.current_page--);
+            }
+            return response;
+        });
+    },
+    save(context, contaBancaria) {
+        return ContaBancaria.save({}, contaBancaria).then((response) => {
+            return response;
+        })
     }
 };
 
 const module = {
-    state, mutations, actions
+    namespaced: true,
+    state,
+    mutations,
+    actions
 }
 export default module;

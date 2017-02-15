@@ -1,10 +1,10 @@
 <template src="./_form.html"></template>
 
 <script type="text/javascript">
-    import {ContaBancaria, Banco} from '../../services/resources';
+    import {ContaBancaria} from '../../services/resources';
     import PageTitleComponent from '../PageTitle.vue';
     import 'materialize-autocomplete';
-    import _ from 'lodash';
+    import store from '../../store/store';
 
     export default {
         components: {
@@ -22,23 +22,26 @@
                 },
                 banco: {
                     nome: ""
-                },
-                bancos: []
+                }
             };
+        },
+        computed: {
+            bancos() {
+                return store.state.banco.bancos;
+            }
         },
         created() {
             this.getBancos();
         },
         methods: {
             submit() {
-                ContaBancaria.save({}, this.contaBancaria).then(() => {
+                store.dispatch('contaBancaria/save', this.contaBancaria).then(() => {
                     Materialize.toast('Conta bancária criada com sucesso!', 4000);
                     this.$router.go({name: 'conta-bancaria.list'});
-                })
+                });
             },
             getBancos() {
-                Banco.query().then((response) => {
-                    this.bancos = response.data.data;
+                store.dispatch('banco/query').then((response) => {
                     this.initAutocomplete();
                 });
             },
@@ -57,10 +60,8 @@
                             el: '#banco-id-dropdown'
                         },
                         getData(value, callback) {
-                            let bancos = self.filterBancoPorNome(value);
-                            bancos = bancos.map((o) => {
-                                return {id: o.id, text: o.nome};
-                            })
+                            let mapBancos = store.getters['banco/mapBancos'];
+                            let bancos = mapBancos(value);
                             callback(value, bancos);
                         },
                         onSelect(item) {
@@ -68,12 +69,6 @@
                         }
                     });
                 });
-            },
-            filterBancoPorNome(nome) {
-                let bancos = _.filter(this.bancos, (o) => {
-                    return _.includes(o.nome.toLowerCase(), nome.toLowerCase());
-                });
-                return bancos;
             }
         }
     };

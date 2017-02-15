@@ -58,7 +58,7 @@
         },
         methods: {
             login() {
-                store.dispatch('login', this.user)
+                store.dispatch('auth/login', this.user)
                     .then(() => this.$router.go({ name: 'dashboard' }))
                     .catch((responseError) => {
                         switch (responseError.status) {

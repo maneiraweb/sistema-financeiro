@@ -23,7 +23,7 @@
         methods: {
             logout() {
                 let goToLogin = () => this.$router.go({ name: 'auth.login' });
-                store.dispatch('logout')
+                store.dispatch('auth/logout')
                     .then(goToLogin)
                     .catch(goToLogin);
             }
