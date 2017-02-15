@@ -12,8 +12,8 @@
                         <th v-for="(key, o) in table.headers" :width="o.width">
                             <a href="#" @click.prevent="sortBy(key)">
                                 {{o.label}}
-                                <i class="material-icons right" v-if="order.key == key">
-                                    {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
+                                <i class="material-icons right" v-if="searchOptions.order.key == key">
+                                    {{ searchOptions.order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
                                 </i>
                             </a>
                         </th>
@@ -47,9 +47,9 @@
                 </tbody>
             </table>
             <pagination 
-                :current-page.sync="pagination.current_page"
-                :per-page="pagination.per_page" 
-                :total-records="pagination.total"></pagination>
+                :current-page.sync="searchOptions.pagination.current_page"
+                :per-page="searchOptions.pagination.per_page" 
+                :total-records="searchOptions.pagination.total"></pagination>
             </div>
             <div class="fixed-action-btn">
                 <a class="btn-floating btn-large" v-link="{name: 'conta-bancaria.create'}">
@@ -83,6 +83,7 @@
     import PaginationComponent from '../Pagination.vue';
     import PageTitleComponent from '../PageTitle.vue';
     import SearchComponent from '../Search.vue';
+    import store from '../../store/store';
 
     export default {
         components: {
@@ -93,20 +94,9 @@
         },
         data() {
             return {
-                contasBancarias: [],
-                contaBancariaToDelete: null,
+                contaBancariaDelete: null,
                 modal: {
                     id: 'modal-delete'
-                },
-                pagination: {
-                    current_page: 0,
-                    per_page: 0,
-                    total: 0
-                },
-                search: "",
-                order: {
-                    key: 'id',
-                    sort: 'asc'
                 },
                 table: {
                     headers: {
@@ -132,8 +122,24 @@
                 }
             };
         },
+        computed:{
+            contasBancarias(){
+                return store.state.contaBancaria.contasBancarias;
+            },
+            searchOptions(){
+                return store.state.contaBancaria.searchOptions;
+            },
+            search: {
+                get() {
+                    return store.state.contaBancaria.searchOptions.search;
+                },
+                set(value) {
+                    store.commit('setFilter', value);
+                }
+            }
+        },
         created() {
-            this.getContasBancarias();
+            store.dispatch('query');
         },
         methods: {
             destroy() {
@@ -149,33 +155,16 @@
                 this.contaBancariaToDelete = contaBancaria;
                 $('#modal-delete').modal('open');
             },
-            getContasBancarias() {
-                ContaBancaria.query({
-                    page: this.pagination.current_page + 1,
-                    orderBy: this.order.key,
-                    sortedBy: this.order.sort,
-                    search: this.search,
-                    include: 'banco'
-                }).then((response) => {
-                    this.contasBancarias = response.data.data;
-                    let pagination = response.data.meta.pagination;
-                    pagination.current_page--;
-                    this.pagination = pagination;
-                });
-            },
             sortBy(key) {
-                this.order.key = key;
-                this.order.sort = this.order.sort == 'desc' ? 'asc' : 'desc';
-                this.getContasBancarias();
+                store.dispatch('queryWithSortBy', key);
             },
             filter() {
-                this.pagination.current_page = 0;
-                this.getContasBancarias();
+                store.dispatch('queryWithFilter');
             }
         },
         events: {
             'pagination::changed'(page){
-                this.getContasBancarias();
+                store.dispatch('queryWithPagination', page);
             }
         }
     };

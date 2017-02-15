@@ -42,7 +42,8 @@
 </template>
 
 <script type="text/javascript">
-import Auth from '../services/auth';
+    import store from '../store/store';
+    
     export default {
         data(){
             return {
@@ -50,13 +51,12 @@ import Auth from '../services/auth';
                     {name: 'Conta Bancária', url: 'conta-bancaria.list'},
                     {name: 'Categoria', url: 'categoria.list'}
                 ],
-                menusDropdown: [],
-                user: Auth.user
+                menusDropdown: []
             }
         },
         computed: {
             name() {
-                return this.user.data ? this.user.data.name : '';
+                return store.state.auth.user.name;
             }
         },
          ready() {
