@@ -2,22 +2,10 @@
 
 namespace SisFin\Repositories;
 
-use Prettus\Repository\Eloquent\BaseRepository;
-use Prettus\Repository\Criteria\RequestCriteria;
-use SisFin\Repositories\CategoriaRepository;
-use SisFin\Models\Categoria;
-use SisFin\Validators\CategoriaValidator;
-use SisFin\Presenters\CategoriaPresenter;
-
-/**
- * Class CategoriaRepositoryEloquent
- * @package namespace SisFin\Repositories;
- */
-class CategoriaRepositoryEloquent extends BaseRepository implements CategoriaRepository
-{
-
+trait CategoryRepositoryTrait {
     public function create(array $attributes) {
-        Categoria::$enableTenant = false;
+        $model = $this->model();
+        $model::$enableTenant = false;
         if(isset($attributes['parent_id'])){
             //filho
             $skipPresenter = $this->skipPresenter;
@@ -30,12 +18,13 @@ class CategoriaRepositoryEloquent extends BaseRepository implements CategoriaRep
             //pai
             $result = parent::create($attributes);
         }
-        Categoria::$enableTenant = true;
+        $model::$enableTenant = true;
         return $result;
     }
 
     public function update(array $attributes, $id) {
-        Categoria::$enableTenant = false;
+        $model = $this->model();
+        $model::$enableTenant = false;
         if(isset($attributes['parent_id'])){
             //filho
             $skipPresenter = $this->skipPresenter;
@@ -51,30 +40,7 @@ class CategoriaRepositoryEloquent extends BaseRepository implements CategoriaRep
             $result = parent::update($attributes, $id);
             $result->makeRoot()->save();
         }
-        Categoria::$enableTenant = true;
+        $model::$enableTenant = true;
         return $result;
-    }
-    /**
-     * Specify Model class name
-     *
-     * @return string
-     */
-    public function model()
-    {
-        return Categoria::class;
-    }
-
-    
-
-    /**
-     * Boot up the repository, pushing criteria
-     */
-    public function boot()
-    {
-        $this->pushCriteria(app(RequestCriteria::class));
-    }
-
-    public function presenter() {
-        return CategoriaPresenter::class;
     }
 }

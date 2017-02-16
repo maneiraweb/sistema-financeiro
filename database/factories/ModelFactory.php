@@ -42,7 +42,13 @@ $factory->define(SisFin\Models\Cliente::class, function (Faker\Generator $faker)
     ];
 });
 
-$factory->define(SisFin\Models\Categoria::class, function (Faker\Generator $faker) {
+$factory->define(SisFin\Models\CategoryRevenue::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name
+    ];
+});
+
+$factory->define(SisFin\Models\CategoryExpense::class, function (Faker\Generator $faker) {
     return [
         'nome' => $faker->name
     ];

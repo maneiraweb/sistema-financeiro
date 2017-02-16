@@ -22,7 +22,8 @@ Route::group(['middleware' => 'cors', 'as' => 'api.'], function(){
     Route::group(['middleware' => 'auth:api'], function(){
         Route::resource('bancos', 'Api\BancosController', ['only' => ['index']]);
         Route::resource('contas_bancarias', 'Api\ContaBancariasController', ['except' => ['create', 'edit']]);
-        Route::resource('categorias', 'Api\CategoriasController', ['except' => ['create', 'edit']]);
+        Route::resource('category_revenues', 'Api\CategoryRevenuesController', ['except' => ['create', 'edit']]);
+        Route::resource('category_expenses', 'Api\CategoryExpensesController', ['except' => ['create', 'edit']]);
         Route::post('logout', 'Api\AuthController@logout')->name('logout');
         Route::get('user', function (Request $request) {
             $user = $request->user('api');

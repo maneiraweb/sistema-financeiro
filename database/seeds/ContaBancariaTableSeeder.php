@@ -15,7 +15,7 @@ class ContaBancariaTableSeeder extends Seeder
     {
         $bancos = $this->getBancos();
         $clientes = $this->getClientes();
-        $max = 50;
+        $max = 500;
         $contaBancariaId = rand(1, $max);
 
         factory(\SisFin\Models\ContaBancaria::class, $max)

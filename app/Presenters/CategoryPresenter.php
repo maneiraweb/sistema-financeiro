@@ -2,15 +2,15 @@
 
 namespace SisFin\Presenters;
 
-use SisFin\Transformers\CategoriaTransformer;
+use SisFin\Transformers\CategoryTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
 /**
- * Class CategoriaPresenter
+ * Class CategoryPresenter
  *
  * @package namespace SisFin\Presenters;
  */
-class CategoriaPresenter extends FractalPresenter
+class CategoryPresenter extends FractalPresenter
 {
     /**
      * Transformer
@@ -19,6 +19,6 @@ class CategoriaPresenter extends FractalPresenter
      */
     public function getTransformer()
     {
-        return new CategoriaTransformer();
+        return new CategoryTransformer();
     }
 }

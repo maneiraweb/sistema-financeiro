@@ -6,10 +6,10 @@ use Prettus\Repository\Contracts\CriteriaInterface;
 use Prettus\Repository\Contracts\RepositoryInterface;
 
 /**
- * Class WithDepthCategoriasCriteria
+ * Class WithDepthCategoriesCriteria
  * @package namespace SisFin\Criteria;
  */
-class WithDepthCategoriasCriteria implements CriteriaInterface
+class WithDepthCategoriesCriteria implements CriteriaInterface
 {
     /**
      * Apply criteria in query repository

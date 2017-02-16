@@ -14,7 +14,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <select-material :options="cpOptions" :selected="categoria.parent_id"></select-material>
+                            <select-material :options="cpOptions" :selected.sync="categoria.parent_id"></select-material>
                             <label class="active">Categoria Pai</label>
                         </div>
                     </div>

@@ -8,7 +8,7 @@ use Prettus\Repository\Traits\TransformableTrait;
 use Kalnoy\Nestedset\NodeTrait;
 use HipsterJazzbo\Landlord\BelongsToTenants;
 
-class Categoria extends Model implements Transformable
+abstract class AbstractCategory extends Model implements Transformable
 {
     use TransformableTrait;
     use BelongsToTenants;

@@ -6,10 +6,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
 use Prettus\Repository\Contracts\RepositoryCriteriaInterface;
 
 /**
- * Interface CategoriaRepository
+ * Interface CategoryExpenseRepository
  * @package namespace SisFin\Repositories;
  */
-interface CategoriaRepository extends RepositoryInterface, RepositoryCriteriaInterface
+interface CategoryExpenseRepository extends RepositoryInterface, RepositoryCriteriaInterface
 {
     //
 }

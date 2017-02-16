@@ -3,23 +3,23 @@
 namespace SisFin\Transformers;
 
 use League\Fractal\TransformerAbstract;
-use SisFin\Models\Categoria;
+use SisFin\Models\AbstractCategory;
 
 /**
- * Class CategoriaTransformer
+ * Class CategoryTransformer
  * @package namespace SisFin\Transformers;
  */
-class CategoriaTransformer extends TransformerAbstract
+class CategoryTransformer extends TransformerAbstract
 {
 
     protected $defaultIncludes = ['children'];
     /**
-     * Transform the \Categoria entity
-     * @param \Categoria $model
+     * Transform the \AbstractCategory entity
+     * @param \AbstractCategory $model
      *
      * @return array
      */
-    public function transform(Categoria $model)
+    public function transform(AbstractCategory $model)
     {
         return [
             'id'         => (int) $model->id,
@@ -31,10 +31,10 @@ class CategoriaTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeChildren(Categoria $model) {
+    public function includeChildren(AbstractCategory $model) {
         //if($model->children->count()){
             $children = $model->children()->withDepth()->get();
-            return $this->collection($children, new CategoriaTransformer());
+            return $this->collection($children, new CategoryTransformer());
         //}
     }
 }
