@@ -41,19 +41,19 @@ body {
     }
 }
 
-.categoria-tree {
+.category-tree {
     @extend .collection;
     border: none;
     margin: 0;
     overflow: visible;
 
 
-    .categoria-child {
+    .category-child {
         @extend .collection-item;
         padding-left: 50px;
     }
 
-    .categoria-symbol {
+    .category-symbol {
         line-height: 36px;
         height: 36px;
         i {

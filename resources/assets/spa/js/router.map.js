@@ -6,7 +6,7 @@ import ContaBancariaListComponent from './components/conta-bancaria/ContaBancari
 import ContaBancariaCreateComponent from './components/conta-bancaria/ContaBancariaCreate.vue';
 import ContaBancariaUpdateComponent from './components/conta-bancaria/ContaBancariaUpdate.vue';
 
-import CategoriaListComponent from './components/categoria/CategoriaList.vue';
+import PlanAccountComponent from './components/category/PlanAccount.vue';
 
 export default {
     '/login': {
@@ -44,9 +44,9 @@ export default {
             }
         }
     },
-    '/categorias': {
-        name: 'categoria.list',
-        component: CategoriaListComponent,
+    '/plano-de-contas': {
+        name: 'plan-account.list',
+        component: PlanAccountComponent,
         auth: true
     }
 }

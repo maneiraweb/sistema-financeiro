@@ -8,11 +8,11 @@
         <header v-if="showMenu">
             <menu></menu>
         </header>
-        
+
         <main>
             <router-view></router-view>
         </main>
-        
+
         <footer class="page-footer">
             <div class="footer-copyright">
                 <div class="center container">

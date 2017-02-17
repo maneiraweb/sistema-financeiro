@@ -9,13 +9,13 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <label class="active">Nome</label>
-                            <input type="text" v-model="categoria.nome" />
+                            <input type="text" v-model="category.nome" />
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <select-material :options="cpOptions" :selected.sync="categoria.parent_id"></select-material>
-                            <label class="active">Categoria Pai</label>
+                            <select-material :options="cpOptions" :selected.sync="category.parent_id"></select-material>
+                            <label class="active">category Pai</label>
                         </div>
                     </div>
                 </div>
@@ -37,7 +37,7 @@
             'select-material': SelectedMaterialComponent
         },
         props: {
-            categoria: {
+            category: {
                 type: Object,
                 required: true
             },
@@ -52,7 +52,7 @@
         },
         methods: {
             submit() {
-                this.$emit('save-categoria');
+                this.$emit('save-category');
             }
         }
     }

@@ -49,7 +49,7 @@
             return {
                 menus: [
                     {name: 'Conta Bancária', url: 'conta-bancaria.list'},
-                    {name: 'Categoria', url: 'categoria.list'}
+                    {name: 'Plano de Contas', url: 'plan-account.list'}
                 ],
                 menusDropdown: []
             }
