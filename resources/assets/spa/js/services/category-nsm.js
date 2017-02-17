@@ -2,17 +2,17 @@ import { CategoryRevenue, CategoryExpense } from './resources';
 
 export class categoryFormat {
     static getcategoriesFormatadas(categories) {
-        let categoriesFormatadas = this._formatacategories(categories);
+        let categoriesFormatadas = this._formatCategories(categories);
         categoriesFormatadas.unshift({
             id: 0,
-            text: 'Nenhuma category',
+            text: 'Nenhuma categoria',
             level: 0,
             hasChildren: false
         });
         return categoriesFormatadas;
     }
 
-    static _formatacategories(categories, categoryCollection = []) {
+    static _formatCategories(categories, categoryCollection = []) {
         for (let category of categories) {
             let categoryNew = {
                 id: category.id,
@@ -21,7 +21,7 @@ export class categoryFormat {
                 hasChildren: category.children.data.length > 0
             };
             categoryCollection.push(categoryNew);
-            this._formatacategories(category.children.data, categoryCollection);
+            this._formatCategories(category.children.data, categoryCollection);
         }
         return categoryCollection;
     }
@@ -89,7 +89,7 @@ export class CategoryService {
                     }
                 } else {
                     /*
-                    Tornar a category pai em um filho
+                    Tornar a Categoria Pai em um filho
                     */
                     categories.$remove(categoryOriginal);
                     CategoryService._addChild(categoryUpdate, categories);

@@ -14,7 +14,7 @@ class CategoryExpensesTableSeeder extends Seeder
     {
         $clientes = $this->getClientes();
 
-        factory(\SisFin\Models\CategoryExpense::class, 30)
+        factory(\SisFin\Models\CategoryExpense::class, 15)
             ->make()
             ->each(function($categoy) use($clientes){
                 $cliente = $clientes->random();

@@ -72,7 +72,7 @@ const actions = {
         return ContaBancaria.save({}, contaBancaria).then((response) => {
             return response;
         })
-    }
+    },
 };
 
 const module = {
