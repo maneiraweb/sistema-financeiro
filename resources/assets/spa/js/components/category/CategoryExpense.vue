@@ -35,7 +35,7 @@
         mixins: [categoryMixin],
         methods: {
             namespace() {
-                return 'categoryRevenue';
+                return 'categoryExpense';
             }
         },
     }

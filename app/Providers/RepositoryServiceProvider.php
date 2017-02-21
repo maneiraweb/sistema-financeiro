@@ -29,6 +29,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(\SisFin\Repositories\ClienteRepository::class, \SisFin\Repositories\ClienteRepositoryEloquent::class);
         $this->app->bind(\SisFin\Repositories\CategoryExpenseRepository::class, \SisFin\Repositories\CategoryExpenseRepositoryEloquent::class);
         $this->app->bind(\SisFin\Repositories\CategoryRevenueRepository::class, \SisFin\Repositories\CategoryRevenueRepositoryEloquent::class);
+        $this->app->bind(\SisFin\Repositories\BillPayRepository::class, \SisFin\Repositories\BillPayRepositoryEloquent::class);
         //:end-bindings:
     }
 }

@@ -29,14 +29,13 @@
 </template>
 
 <script type="text/javascript">
-
     import categoryMixin from '../../mixins/category-mixin';
 
     export default {
         mixins: [categoryMixin],
         methods: {
             namespace() {
-                return 'categoryExpense';
+                return 'categoryRevenue';
             }
         },
     }

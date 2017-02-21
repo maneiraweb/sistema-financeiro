@@ -4,6 +4,7 @@ namespace SisFin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use SisFin\Http\Controllers\Api\CategoryRevenuesController;
 
 class CategoryRequest extends FormRequest
 {
