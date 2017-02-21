@@ -48,10 +48,18 @@
         data(){
             return {
                 menus: [
+                    {name: 'Contas', dropdownId: 'bills-dropdown'},
                     {name: 'Conta Bancária', url: 'conta-bancaria.list'},
                     {name: 'Plano de Contas', url: 'plan-account.list'}
                 ],
-                menusDropdown: []
+                menusDropdown: [
+                    {
+                        id: 'bills-dropdown',
+                        items: [
+                            {name: "À Pagar", routeName: 'bill-pay.list'}
+                        ]
+                    }
+                ]
             }
         },
         computed: {

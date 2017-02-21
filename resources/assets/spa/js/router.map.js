@@ -6,6 +6,8 @@ import ContaBancariaListComponent from './components/conta-bancaria/ContaBancari
 import ContaBancariaCreateComponent from './components/conta-bancaria/ContaBancariaCreate.vue';
 import ContaBancariaUpdateComponent from './components/conta-bancaria/ContaBancariaUpdate.vue';
 
+import BillPayListComponent from './components/bill/bill-pay/BillPayList.vue';
+
 import PlanAccountComponent from './components/category/PlanAccount.vue';
 
 export default {
@@ -40,6 +42,16 @@ export default {
             '/:id/update': {
                 name: 'conta-bancaria.update',
                 component: ContaBancariaUpdateComponent,
+                auth: true
+            }
+        }
+    },
+    '/contas-a-pagar': {
+        component: {template: "<router-view></router-view"},
+        subRoutes: {
+            '/': {
+                name: 'bill-pay.list',
+                component: BillPayListComponent,
                 auth: true
             }
         }

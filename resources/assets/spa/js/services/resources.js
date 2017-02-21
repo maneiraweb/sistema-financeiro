@@ -20,5 +20,6 @@ let ContaBancaria = Vue.resource('contas_bancarias{/id}');
 let Banco = Vue.resource('bancos');
 let CategoryRevenue = Vue.resource('category_revenues{/id}');
 let CategoryExpense = Vue.resource('category_expenses{/id}');
+let BillPay = Vue.resource('bill_pays{/id}');
 
-export {User, ContaBancaria, Banco, CategoryRevenue, CategoryExpense};
+export {User, ContaBancaria, Banco, CategoryRevenue, CategoryExpense, BillPay};
