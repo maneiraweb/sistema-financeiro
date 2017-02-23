@@ -1,4 +1,4 @@
-<templatesrc="../_form.html"></template>
+<template src="../_form.html"></template>
 
 <script type="text/javascript">
     import billBayMixin from '../../../mixins/bill-mixin';

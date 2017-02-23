@@ -4,7 +4,7 @@ export default () => {
     const state = {
         bills: [],
         billDelete: null,
-        recource: null,
+        resource: null,
         searchOptions: new SearchOptions()
     };
 
@@ -40,7 +40,7 @@ export default () => {
     const actions = {
         query(context) {
             let searchOptions = context.state.searchOptions;
-            return context.state.recource.query(searchOptions.createOptions()).then((response) => {
+            return context.state.resource.query(searchOptions.createOptions()).then((response) => {
                 context.commit('set', response.data.data);
                 context.commit('setPagination', response.data.meta.pagination);
             });
@@ -58,7 +58,7 @@ export default () => {
         },
         'delete'(context) {
             let id = context.state.billDelete.id;
-            return context.state.recource.delete({id: id}).then((response) => {
+            return context.state.resource.delete({id: id}).then((response) => {
                 context.commit('delete');
                 context.commit('setDelete', null);
 
@@ -79,6 +79,7 @@ export default () => {
         edit(context, {index, bill}) {
             return context.state.resource.update({id: bill.id}, bill).then((response) => {
                 context.commit('update', {index, bill});
+                return response;
             });
         }
     };
@@ -96,5 +97,6 @@ export default () => {
         actions,
         getters
     };
+    
     return module;
 }

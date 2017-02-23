@@ -36,9 +36,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <pagination :current-page.sync="searchOptions.pagination.current_page" 
-                            :per-page="searchOptions.pagination.per_page" 
-                            :total-records="searchOptions.pagination.total"></pagination>
+                <pagination :current-page.sync="searchOptions.pagination.current_page" :per-page="searchOptions.pagination.per_page" :total-records="searchOptions.pagination.total"></pagination>
             </div>
             <div class="fixed-action-btn">
                 <a class="btn-floating btn-large" href="#" @click.prevent="openModalCreate()">
@@ -46,10 +44,13 @@
                 </a>
             </div>
         </div>
+        
     </div>
+
     <bill-pay-create :modal-options="modalCreate"></bill-pay-create>
     <bill-pay-update :index="indexUpdate" :modal-options="modalEdit"></bill-pay-update>
-    <modal :modal="modaldelete">
+    
+    <modal :modal="modalDelete">
         <div slot="content" v-if="billPayDelete">
             <h4>Exclusão!</h4>
             <p><strong>Deseja excluir esta conta?</strong></p>
@@ -102,19 +103,19 @@
                 table: {
                     headers: {
                         id: {
-                            label: 'Cód.', width: '9%'
+                            label: 'Cód.', width: '10%'
                         },
                         date_due: {
-                            label: 'Vencimento', width: '30%'
+                            label: 'Vencimento', width: '20%'
                         },
                         name: {
-                            label: 'Nome', width: '12%',
+                            label: 'Nome', width: '30%',
                         },
                         value: {
-                            label: 'Valor', width: '12%'
+                            label: 'Valor', width: '15%'
                         },
                         'done': {
-                            label: 'Pago', width: '5%'
+                            label: 'Pago', width: '10%'
                         }
                     }
                 }
@@ -147,12 +148,15 @@
                 store.dispatch('billPay/delete').then((response) => {
                     Materialize.toast('Conta excluída com sucesso!', 4000);
                 });
-            }, openModalCreate() {
+            },
+            openModalCreate() {
                 $('#modal-create').modal('open');
-            }, openModalEdit(index) {
+            },
+            openModalEdit(index) {
                 this.indexUpdate = index;
                 $('#modal-edit').modal('open');
-            },openModalDelete(billPay) {
+            },
+            openModalDelete(billPay) {
                 store.commit('billPay/setDelete', billPay);
                 $('#modal-delete').modal('open');
             },

@@ -7,7 +7,7 @@ export default {
         'modal': ModalComponent,
         'page-title': PageTitleComponent
     },
-    props:{
+    props: {
         index: {
             type: Number,
             required: false,
@@ -29,49 +29,15 @@ export default {
             }
         };
     },
-    computed: {
-        //Opções para o campo select2 de Categoria Pai
-        cpOptions() {
-            return {
-                data: this.categoriesFormatted,
-                templateResult(category) {
-                    let margin = '&nbsp;'.repeat(category.level * 8);
-                    let text = category.hasChildren ? `<strong>${category.text}</strong>` : category.text;
-                    return `${margin}${text}`;
-                },
-                escapeMarkup(m) {
-                    return m;
-                }
-            }
-        },
-        categories() {
-            return store.state[this.namespace()].categories;
-        },
-        categoriesFormatted() {
-            return store.getters[`${this.namespace()}/categoriesFormatted`];
-        },
-        categoryDelete() {
-            return store.state[this.namespace()].category;
-        },
-        modalOptionsSave() {
-            return { id: `modal-category-save-${this._uid}` };
-        },
-        modalOptionsDelete() {
-            return { id: `modal-category-delete-${this._uid}` };
-        },
-    },
-    created() {
-        store.dispatch(`${this.namespace()}/query`);
-    },
     methods: {
         doneId() {
             return `done-${this._uid}`;
         },
         submit() {
-            if(this.bill.id !== 0) {
+            if (this.bill.id !== 0) {
                 store.dispatch(`${this.namespace()}/edit`, {
-                   bill: this.bill,
-                   index: thid.index 
+                    bill: this.bill,
+                    index: this.index
                 }).then(() => {
                     Materialize.toast('Conta atualizada com sucesso!', 4000);
                     this.resetScope();

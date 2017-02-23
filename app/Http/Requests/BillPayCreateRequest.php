@@ -4,7 +4,7 @@ namespace SisFin\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContaBancariaCreateRequest extends FormRequest
+class BillPayCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,10 +24,11 @@ class ContaBancariaCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'date_due' => 'required|date',
-            'name' => 'required|max:255',
-            'value' => 'required|number',
-            'done' => 'boolean',
+            'nome' => 'required|max:255',
+            'agencia' => 'required|max:255',
+            'conta' => 'required|max:255',
+            'default' => 'boolean',
+            'banco_id' => 'required|exists:bancos,id'
         ];
     }
 }

@@ -38,11 +38,11 @@ class BillPaysController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ContaBancariaCreateRequest $request
+     * @param  BillPayCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(ContaBancariaCreateRequest $request)
+    public function store(BillPayCreateRequest $request)
     {
         $billPay = $this->repository->create($request->all());
         return response()->json($billPay, 201);
@@ -66,12 +66,12 @@ class BillPaysController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  ContaBancariaUpdateRequest $request
+     * @param  BillPayUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      */
-    public function update(ContaBancariaUpdateRequest $request, $id)
+    public function update(BillPayUpdateRequest $request, $id)
     {
         $billPay = $this->repository->update($request->all(), $id);
         return response()->json($billPay);
