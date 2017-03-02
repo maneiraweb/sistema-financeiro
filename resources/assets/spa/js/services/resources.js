@@ -16,7 +16,9 @@ export class Jwt{
 }
 
 let User = Vue.resource('user');
-let ContaBancaria = Vue.resource('contas_bancarias{/id}');
+let ContaBancaria = Vue.resource('contas_bancarias{/id}', {}, {
+    lists: {method: 'GET', url: 'contas_bancarias/lists'}
+});
 let Banco = Vue.resource('bancos');
 let CategoryRevenue = Vue.resource('category_revenues{/id}');
 let CategoryExpense = Vue.resource('category_expenses{/id}');

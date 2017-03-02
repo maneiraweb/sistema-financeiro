@@ -6,19 +6,44 @@
                     <h5>{{title()}}</h5>
                 </page-title>
                 <div class="row">
-                    <div class="input-field col s6">
-                        <label class="active">Vencimento</label>
-                        <input type="text" v-model="bill.date_due" />
+                    <div class="input-field col s12">
+                        <label class="active">Conta bancária</label>
+                        <input type="text" :id="bankAccountTextId()" placeholder="Pesquise a conta bancária" autocomplete="off" :data-activates="bankAccountDropdownId()"
+                            data-beloworigin="true" />
+                        <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
                     </div>
-                    <div class="input-field col s6">
-                        <label class="active">Valor</label>
-                        <input type="text" v-model="bill.value" />
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select-material :options="cpOptions" :selected.sync="bill.category_id"
+                        v-validate data-vv-rules="required|min_value:1"
+                        ></select-material>
+                        <label class="active">Categoria de Despesa</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <label class="active">Nome</label>
-                        <input type="text" v-model="bill.name" />
+                        <input type="text" v-model="bill.date_due | dateFormat" placeholder="Informe a data"
+                        class="validate" id="date_due" name="date_due"
+                        v-validate data-vv-rules="required|date_format_custom" data-vv-as="vencimento"
+                        :class="{'invalid': errors.has('date_due')}" />
+                        <label class="active" for="date_due" :data-error="errors.first('date_due')">Vencimento</label>
+                    </div>
+                    <div class="input-field col s6">
+                        <input type="text" v-model="bill.value | numberFormat" placeholder="Informe o valor"
+                        class="validate" id="value" name="value"
+                        v-validate data-vv-rules="required|number_format:0.01" data-vv-as="valor"
+                        :class="{'invalid': errors.has('value')}" />
+                        <label class="active" for="value" :data-error="errors.first('value')">Valor</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s6">
+                        <input type="text" v-model="bill.name" id="name" name="name"
+                        class="validate" placeholder=""
+                        v-validate data-vv-rules="required" data-vv-as="nome"
+                        :class="{'invalid': errors.has('name')}" />
+                        <label class="active" for="name" :data-error="errors.first('name')">Nome</label>
                     </div>
                     <div class="input-field col s6">
                         <input type="checkbox" class="filled-in" v-model="bill.done" :id="doneId()" />
@@ -27,9 +52,10 @@
                 </div>
             </div>
             <div slot="footer">
-                <button class="btn btn-flat waves-effect green lighten-2 modal-close modal-action" @click="destroy()">Salvar
-            </button>
-                <button class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
+                <button type="submit" class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">
+                    Salvar
+                </button>
+                <button type="button" class="btn btn-flat waves-effect waves-red modal-close modal-action">Cancelar</button>
             </div>
         </modal>
     </form>

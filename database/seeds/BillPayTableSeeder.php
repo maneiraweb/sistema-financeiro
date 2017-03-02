@@ -19,7 +19,11 @@ class BillPayTableSeeder extends Seeder
             ->make()
             ->each(function($billPay) use($clientes){
                 $cliente = $clientes->random();
+                $bankAccount = $cliente->bankAccounts->random();
+                $category = $cliente->categoryExpenses->random();
                 $billPay->cliente_id = $cliente->id;
+                $billPay->bank_account_id = $bankAccount->id;
+                $billPay->category_id = $category->id;
                 $billPay->save();
             });
     }

@@ -142,6 +142,8 @@
         },
         created() {
             store.dispatch('billPay/query');
+            store.dispatch('contaBancaria/lists');
+            store.dispatch('categoryExpense/query');
         },
         methods: {
             destroy() {

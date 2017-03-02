@@ -21,6 +21,7 @@ Route::group(['middleware' => 'cors', 'as' => 'api.'], function(){
     
     Route::group(['middleware' => 'auth:api'], function(){
         Route::resource('bancos', 'Api\BancosController', ['only' => ['index']]);
+        Route::get('contas_bancarias/lists', 'Api\ContaBancariasController@lists')->name('bank_accounts.list');
         Route::resource('contas_bancarias', 'Api\ContaBancariasController', ['except' => ['create', 'edit']]);
         Route::resource('category_revenues', 'Api\CategoryRevenuesController', ['except' => ['create', 'edit']]);
         Route::resource('category_expenses', 'Api\CategoryExpensesController', ['except' => ['create', 'edit']]);

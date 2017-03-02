@@ -1,10 +1,12 @@
 import { ContaBancaria } from '../services/resources';
 import SearchOptions from '../services/search-options';
+import _ from 'lodash';
 
 const USER = 'user';
 
 const state = {
     contasBancarias: [],
+    lists: [],
     contaBancariaDelete: null,
     searchOptions: new SearchOptions('banco')
 };
@@ -12,6 +14,9 @@ const state = {
 const mutations = {
     set(state, contasBancarias) {
         state.contasBancarias = contasBancarias;
+    },
+    setLists(state, lists) {
+        state.lists = lists;
     },
     setDelete(state, contaBancariaDelete) {
         state.contaBancariaDelete = contaBancariaDelete;
@@ -36,6 +41,11 @@ const mutations = {
 };
 
 const actions = {
+    lists(context) {
+        return ContaBancaria.lists().then(response => {
+            context.commit('setLists', response.data);
+        });
+    },
     query(context) {
         let searchOptions = context.state.searchOptions;
         return ContaBancaria.query(searchOptions.createOptions()).then((response) => {
@@ -75,10 +85,28 @@ const actions = {
     },
 };
 
+const getters = {
+    filterBankAccountByName: (state) => (name) => {
+        let bankAccounts = _.filter(state.lists, (o) => {
+            return _.includes(o.nome.toLowerCase(), name.toLowerCase());
+        });
+        return bankAccounts;
+    },
+    mapBankAccounts(state, getters) {
+        return (name) => {
+            let bankAccounts = getters.filterBankAccountByName(name);
+            return bankAccounts.map((o) => {
+                return { id: o.id, text: `${o.nome} - ${o.conta}` };
+            });
+        }
+    }
+};
+
 const module = {
     namespaced: true,
     state,
     mutations,
-    actions
+    actions,
+    getters
 }
 export default module;

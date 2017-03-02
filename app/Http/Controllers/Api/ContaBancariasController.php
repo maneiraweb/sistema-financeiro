@@ -24,6 +24,9 @@ class ContaBancariasController extends Controller
         $this->repository = $repository;
     }
 
+    public function lists() {
+        return $this->repository->skipPresenter()->all(['id', 'nome', 'conta']);
+    }
 
     /**
      * Display a listing of the resource.
