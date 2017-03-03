@@ -96,9 +96,12 @@ const getters = {
         return (name) => {
             let bankAccounts = getters.filterBankAccountByName(name);
             return bankAccounts.map((o) => {
-                return { id: o.id, text: `${o.nome} - ${o.conta}` };
+                return { id: o.id, text: getters.textAutoComplete(o) };
             });
         }
+    },
+    textAutoComplete: (state) => (bankAccount) => {
+        return `${bankAccount.nome} - ${bankAccount.conta}`;
     }
 };
 

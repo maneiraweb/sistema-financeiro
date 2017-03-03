@@ -1,5 +1,5 @@
 <div>
-    <form name="form" method="POST" @submit.prevent="submit">
+    <form :id="formId()" name="form" method="POST" @submit.prevent="submit">
         <modal :modal="modalOptions">
             <div slot="content">
                 <page-title>
@@ -7,18 +7,22 @@
                 </page-title>
                 <div class="row">
                     <div class="input-field col s12">
-                        <label class="active">Conta bancária</label>
                         <input type="text" :id="bankAccountTextId()" placeholder="Pesquise a conta bancária" autocomplete="off" :data-activates="bankAccountDropdownId()"
-                            data-beloworigin="true" />
+                            data-beloworigin="true" @blur="blurBankAccount"
+                            class="validate" :class="{'invalid': errors.has('bank_account_id')}"/>
+                        <input type="hidden" name="bank_account_id" :value="bill.bank_account_id" :id="bankAccountHiddenId()"
+                            v-validate data-vv-rules="required" data-vv-as="conta bancária" />
+                        <label class="active" :data-error="errors.first('bank_account_id')">Conta bancária</label>
                         <ul :id="bankAccountDropdownId()" class="dropdown-content ac-dropdown"></ul>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s12">
                         <select-material :options="cpOptions" :selected.sync="bill.category_id"
-                        v-validate data-vv-rules="required|min_value:1"
+                        v-validate data-vv-rules="required" data-vv-name="category_id"
+                        name="category_id" data-vv-as="categoria de despesa"
                         ></select-material>
-                        <label class="active">Categoria de Despesa</label>
+                        <label class="active" :data-error="errors.first('category_id')">Categoria de Despesa</label>
                     </div>
                 </div>
                 <div class="row">
